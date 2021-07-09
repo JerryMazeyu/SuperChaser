@@ -8,6 +8,7 @@
 * [游戏规则](#rule)
 * [快速开始](#start)
 * [可配置项](#config)
+* [服务端并行无图形界面环境](#serv)
 
 ### <span id="rule">游戏规则</span>
 
@@ -68,4 +69,6 @@ print("step1: ", sendMove('right'))
 
 在`config.py`中可以对迷宫的维度进行配置，其中文件内部有详细的说明。
 
+### <span id="conf">服务端并行无图形界面环境</span>
 
+为了便于并行训练，在`server/server.py`中实现了无图形界面的版本，具体可以参考程序内部的实现。
