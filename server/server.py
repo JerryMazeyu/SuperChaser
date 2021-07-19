@@ -216,10 +216,8 @@ class Server():
         assert len(move_batch) == len(self.games), ValueError(f"Batch size expected {self.games}, but got {len(move_batch)}")
         res = []
         for ii in range(len(self.games)):
-            res.append(self.games[ii].step(move_batch[ii]))
+            res.append(json.loads(self.games[ii].step(move_batch[ii])))
             if verbose:
-                # self.games[ii].showMaze(self.games[ii].maze)
-                # print(">" * 20)
                 self.games[ii].showMaze(json.loads(self.games[ii].get_client_info())['maze'])
                 print(">" * 40)
                 print()
@@ -231,7 +229,7 @@ class Server():
 if __name__ == '__main__':
     s = Server(2)  # 环境个数
     for i in range(10):
-        s.step(['right', 'right'], verbose=True)
+        r = s.step(['right', 'right'], verbose=True)
 
 
 
