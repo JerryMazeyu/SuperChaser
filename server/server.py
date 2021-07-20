@@ -80,6 +80,8 @@ class Game():
             candidate_cor = [current_coordinate[0] - 1, current_coordinate[1]]
         elif type_ == 'down':
             candidate_cor = [current_coordinate[0] + 1, current_coordinate[1]]
+        elif type_ == 'get':
+            candidate_cor = current_coordinate
 
         item_type = self.check_move(candidate_cor)
 
@@ -96,6 +98,10 @@ class Game():
             self.runtime.game_info['score'] -= 1000
 
         self.client_info.score = self.runtime.game_info['score']
+        if self.client_info.score <= 0:
+            self.client_info.state = -1
+        elif current_coordinate == self.target.cord:
+            self.client_info.state = 1
 
         self.player.cord = current_coordinate
         self.process_neighbours()
