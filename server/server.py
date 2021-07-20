@@ -8,7 +8,7 @@ import json
 import numpy as np
 
 parser = argparse.ArgumentParser(description="Im2Latex Training Program")
-parser.add_argument("-m", "--mode", choices=("train", "test"), default="test", help="游戏模式")
+parser.add_argument("-m", "--mode", dest="mode", choices=("train", "test"), default="train", help="游戏模式")
 parser.add_argument("-d", "--difficulty", default="hard", help="游戏难度")
 parser.add_argument("-n", "--num", default=4, help="创建环境个数")
 args = parser.parse_args()
@@ -50,7 +50,7 @@ class Game():
 
     def setup_env(self):
         self.runtime = runtime.RuntimeGlobalInfo()
-        if self.mode == 'train':
+        if self.mode.mode == 'train':
             self.runtime.maze_info = tools.get_blind_maze()
         else:
             with open(option.maze_file_path, 'r') as f:
