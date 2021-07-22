@@ -35,6 +35,10 @@ class Game():
     def __init__(self, mode=args.mode, difficulty=args.difficulty):
         self.mode = mode
         self.difficulty = difficulty
+        self.restart = False
+        self.init_game()
+
+    def init_game(self):
         self.setup_env()
         self.setup_player()
         self.setup_target()
@@ -69,6 +73,9 @@ class Game():
         self.target.cord = [int(len(self.maze)-1/2)-1, int(len(self.maze)-1/2)-1]
 
     def player_move(self, type_):
+        if self.restart:
+            self.init_game()
+            self.restart = False
         self.client_info.total_steps += 1
         current_coordinate = self.player.cord
         candidate_cor = None
@@ -100,9 +107,10 @@ class Game():
         self.client_info.score = self.runtime.game_info['score']
         if self.client_info.score <= 0:
             self.client_info.state = -1
+            self.restart = True
         elif current_coordinate == self.target.cord:
             self.client_info.state = 1
-
+            self.restart = True
         self.player.cord = current_coordinate
         self.process_neighbours()
         self.client_info.player_cord = self.player.cord
@@ -233,9 +241,15 @@ class Server():
 
 
 if __name__ == '__main__':
-    s = Server(2)  # 环境个数
-    for i in range(10):
-        r = s.step(['right', 'right'], verbose=True)
+    s = Server(1)  # 环境个数
+    v = False
+    for i in range(101):
+        if i >= 99:
+            v = True
+        r = s.step(['right'], verbose=v)
+        if v:
+            print(r)
+
 
 
 
