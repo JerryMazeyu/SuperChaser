@@ -17,7 +17,7 @@ class Maze:
         self.player_coordinate = [1, 1]
         self.target_coordinate = [int(len(self.maze)-1/2)-1, int(len(self.maze)-1/2)-1]
         self.client_info = ClientInfo(option.init_score, (10,10), len(self.maze), self.runtime.gameinfo['round'],
-                                      self.mazeinfo['bonusValue'], 0,self.player_coordinate, self.target_coordinate)
+                                      self.mazeinfo['bonusValue'], 0, self.player_coordinate, self.target_coordinate)
         self.mazearea = C.MAZE_AREA
         self.ele_shape = (int(self.mazearea[3] / max(len(self.maze), len(self.maze[0]))),
                           int(self.mazearea[3] / max(len(self.maze), len(self.maze[0]))))
@@ -206,6 +206,8 @@ class Maze:
         self.element_group.update()
         self.update_player()
         self.update_target()
+        if not keys:
+            return
         if keys[pygame.K_RIGHT]:
             self.move('right')
         if keys[pygame.K_LEFT]:

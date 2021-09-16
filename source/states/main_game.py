@@ -103,10 +103,10 @@ class MainGame:
                     if client_recv:
                         print("接受指令自{} -> {}".format(client_addr, client_recv.decode('utf-8')))
                         if client_recv.decode('utf-8') == 'get':
-                            pass
+                            self.maze.update(None)
                         elif client_recv.decode('utf-8') in ['up', 'down', 'left', 'right']:
                             self.move(client_recv.decode('utf-8'))
-                        result = json.dumps(self.client_info, default=lambda obj: obj.__dict__, sort_keys=True, indent=4)
+                        result = json.dumps(self.get_client(), default=lambda obj: obj.__dict__, sort_keys=True, indent=4)
                         client_socket.send(str(result).encode('utf-8'))
                     else:
                         client_socket.close()
