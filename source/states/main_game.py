@@ -65,7 +65,7 @@ class MainGame:
         self.maze.move(type)
 
     def get_game_state(self):
-        if self.client_info.score < 0:
+        if self.client_info.score <= 0:
             return -1
         elif self.client_info.player_cord == self.client_info.target_cord:
             return 1
@@ -106,7 +106,7 @@ class MainGame:
                             pass
                         elif client_recv.decode('utf-8') in ['up', 'down', 'left', 'right']:
                             self.move(client_recv.decode('utf-8'))
-                        result = json.dumps(self.get_client(), default=lambda obj: obj.__dict__, sort_keys=True, indent=4)
+                        result = json.dumps(self.client_info, default=lambda obj: obj.__dict__, sort_keys=True, indent=4)
                         client_socket.send(str(result).encode('utf-8'))
                     else:
                         client_socket.close()

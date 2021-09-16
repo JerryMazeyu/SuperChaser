@@ -29,7 +29,7 @@ while round_ < 10:
             break
 print("Evaluation is OK! Saving to Json.")
 now_time = time.strftime("%Y-%m-%d-%H:%M:%S", time.localtime())
-with open('./results/finalscore.json', 'w') as file:
+with open('finalscore.json', 'w') as file:
     json.dump({'detail': result, 'score': sum(result)/len(result)}, file)
 
 
